@@ -21,12 +21,13 @@ app.post('/', (req, res, next) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
     }),
-    Country.create({
-      name: req.body.name
+    Country.findOrCreate({
+      where: {name: req.body.name}
     })
   ])
   .then(([athlete, country]) => {
-    athlete.setCountry(country)
+    console.log(country[0], country[1])
+    athlete.setCountry(country[0])
   })
   .then(() => res.redirect('/athletes'))
   .catch(next)
