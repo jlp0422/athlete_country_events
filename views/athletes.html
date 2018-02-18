@@ -3,6 +3,17 @@
 {% block content %}
 <h4>2018 Athletes</h4>
 
+<form action="/athletes" method="POST">
+  <label>First Name</label>
+  <input type="text" name="firstName" />
+  <label>Last Name</label>
+  <input type="text" name="lastName" />
+  <label>Country</label>
+  <input type="text" name="name" />
+
+  <button class="btn-btn-primary">Add</button>
+</form>
+
 <ul>
   {% for athlete in athletes %}
   <li>

@@ -4,12 +4,13 @@ const app = express();
 const db = require('./db');
 const path = require('path')
 const nunjucks = require('nunjucks');
-const { Athlete, Country } = db.models
+const { Athlete, Country } = db.models;
 
 nunjucks.configure({ noCache: true })
 app.set('view engine', 'html');
 app.engine('html', nunjucks.render);
 
+app.use(require('body-parser').urlencoded())
 app.use('/vendor', express.static(path.join(__dirname, 'node_modules')));
 app.use('/athletes', require('./routes/athletes'))
 app.use('/countries', require('./routes/countries'))

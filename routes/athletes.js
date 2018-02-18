@@ -13,3 +13,21 @@ app.get('/', (req, res ,next) => {
   .then(athletes => res.render('athletes', { title: 'Athletes', athletes}))
   .catch(next)
 })
+
+app.post('/', (req, res, next) => {
+  console.log(req.body)
+  return Promise.all([
+    Athlete.create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+    }),
+    Country.create({
+      name: req.body.name
+    })
+  ])
+  .then(([athlete, country]) => {
+    athlete.setCountry(country)
+  })
+  .then(() => res.redirect('/athletes'))
+  .catch(next)
+})
