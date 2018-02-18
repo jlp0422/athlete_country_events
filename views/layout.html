@@ -12,16 +12,21 @@
   <div class="container">
     <h1>2018 Olympic Medal Tracker</h1>
     <h3>Track all the medals right here</h3>
-
     <ul style="margin-bottom:10px" class="nav nav-tabs">
       <li class="nav-item">
-        <a href="/" class="nav-link">Home</a>
+        <a href="/" class="nav-link {% if path === '/' %}active{%endif%}" style="{% if path === '/' %}font-weight:bold{%endif%}">Home</a>
       </li>
       <li class="nav-item">
-        <a href="/athletes" class="nav-link">Athletes</a>
+        <a href="/athletes" class="nav-link
+        {% set regExp = r/athletes\/?\*?/ %}{%if regExp.test(path)%}active{% endif %}"
+         style="{% set regExp = r/athletes\/?\*?/ %}{%if regExp.test(path)%}font-weight:bold{% endif %}"
+        >Athletes</a>
       </li>
       <li class="nav-item">
-        <a href="/countries" class="nav-link">Countries</a>
+        <a href="/countries" class="nav-link
+        {% set regExp = r/countries\/?\*?/ %}{%if regExp.test(path)%}active{% endif %}"
+        style="{% set regExp = r/countries\/?\*?/ %}{%if regExp.test(path)%}font-weight:bold{% endif %}"
+        >Countries</a>
       </li>
     </ul>
     {% block content %}

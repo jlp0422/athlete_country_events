@@ -15,7 +15,6 @@ app.get('/', (req, res ,next) => {
 })
 
 app.post('/', (req, res, next) => {
-  console.log(req.body)
   return Promise.all([
     Athlete.create({
       firstName: req.body.firstName,
@@ -26,7 +25,6 @@ app.post('/', (req, res, next) => {
     })
   ])
   .then(([athlete, country]) => {
-    console.log(country[0], country[1])
     athlete.setCountry(country[0])
   })
   .then(() => res.redirect('/athletes'))
