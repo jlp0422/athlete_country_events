@@ -26,3 +26,9 @@ app.get('/:id', (req, res, next) => {
   .then(([athletes, country]) => res.render('country', { title: country.name, athletes, country}))
   .catch(next)
 })
+
+app.post('/', (req, res, next) => {
+  Country.create(req.body)
+    .then(() => res.redirect('/countries'))
+    .catch(next)
+})

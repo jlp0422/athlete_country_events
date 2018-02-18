@@ -3,6 +3,13 @@
 {% block content %}
 <h4>2018 Countries</h4>
 
+<h5>Add new country</h5>
+<form action="/countries" method="POST">
+  <label>Country</label>
+  <input type="text" name="name"/>
+  <button class="btn btn-primary">Add</button>
+</form>
+
 <ul>
 {% for country in countries %}
   <li>
