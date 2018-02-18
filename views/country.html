@@ -1,0 +1,14 @@
+{% extends './layout.html' %}
+
+{% block content %}
+
+<h4>Athletes from {{ country.name }}</h4>
+
+<ul>
+  {% for athlete in athletes %}
+  <li>{{athlete.fullName}}</li>
+  {% endfor %}
+</ul>
+
+
+{% endblock %}

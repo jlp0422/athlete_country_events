@@ -12,6 +12,7 @@ app.engine('html', nunjucks.render);
 
 app.use('/vendor', express.static(path.join(__dirname, 'node_modules')));
 app.use('/athletes', require('./routes/athletes'))
+app.use('/countries', require('./routes/countries'))
 
 app.use((req, res, next) => {
   res.locals.path = req.url

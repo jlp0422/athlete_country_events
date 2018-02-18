@@ -1,0 +1,14 @@
+{% extends './layout.html' %}
+
+{% block content %}
+<h4>2018 Countries</h4>
+
+<ul>
+{% for country in countries %}
+  <li>
+    <a href="/countries/{{country.id}}">{{ country.name }}</a>
+  </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

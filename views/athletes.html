@@ -6,7 +6,7 @@
 <ul>
   {% for athlete in athletes %}
   <li>
-    {{ athlete.fullName }} <a href="/countries/{{athlete.country.countryURL}}">({{ athlete.country.name }})</a>
+    {{ athlete.fullName }} <a href="/countries/{{athlete.country.id}}">({{ athlete.country.name }})</a>
   </li>
   {% endfor %}
 </ul>
