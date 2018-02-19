@@ -2,7 +2,7 @@
 const conn = require('./conn')
 const Athlete = require('./Athlete');
 const Country = require('./Country');
-const OlympicEvent = require('./OlympicEvent');
+const Medal = require('./Medal')
 
 const sync = () => {
   return conn.sync({ force: true })
@@ -17,13 +17,15 @@ const seed = () => {
     Country.create({ name: 'USA'}),
     Country.create({ name: 'Canada'}),
     Country.create({ name: 'South Korea'}),
+    Medal.create({ place: 'Gold', event: 'Men\'s Snowboard Halfpipe' })
   ])
-  .then(([erin, shaun, mark, lim, usa, canada, skorea, sbhalf, luge]) => {
+  .then(([erin, shaun, mark, lim, usa, canada, skorea, sbhalf]) => {
     return Promise.all([
       erin.setCountry(usa),
       shaun.setCountry(usa),
       mark.setCountry(canada),
       lim.setCountry(skorea),
+      sbhalf.setAthlete(shaun)
     ])
   })
 }
@@ -31,8 +33,8 @@ const seed = () => {
 Athlete.belongsTo(Country)
 Country.hasMany(Athlete)
 
-// OlympicEvent.belongsToMany(Athlete, {through: 'athlete_event'})
-// Athlete.belongsToMany(OlympicEvent, { through: 'athlete_event'})
+Medal.belongsTo(Athlete)
+Athlete.hasMany(Medal)
 
 
 module.exports = {
@@ -41,6 +43,6 @@ module.exports = {
   models: {
     Athlete,
     Country,
-    // OlympicEvent
+    Medal
   }
 }

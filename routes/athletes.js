@@ -2,13 +2,13 @@
 
 const athletes = require('express').Router()
 const db = require('../db')
-const { Athlete, Country } = db.models
+const { Athlete, Country, Medal } = db.models
 module.exports = athletes
 
 athletes.get('/', (req, res ,next) => {
-  return Promise.all([
+  Promise.all([
     Athlete.findAll({
-      include: [ Country ],
+      include: [ Country, Medal ],
       order: [
        ['lastName', 'ASC']
       ],
@@ -23,19 +23,26 @@ athletes.get('/', (req, res ,next) => {
 })
 
 athletes.get('/:id', (req, res, next) => {
-  Athlete.find({
-    where: {
-      id: req.params.id
-    },
-    include: [ Country ]
-  })
+  Promise.all([
+      Athlete.find({
+      where: {
+        id: req.params.id
+      },
+      include: [ Country ]
+    }),
+    Medal.findAll({
+      where: {
+        athleteId: req.params.id
+      }
+    })
+  ])
     // .then(athlete => res.send(athlete))
-    .then(athlete => res.render('athlete', {title: `${athlete.fullName}`, athlete}))
+    .then(([athlete, medals]) => res.render('athlete', {title: `${athlete.fullName}`, athlete, medals}))
     .catch(next)
 })
 
 athletes.post('/', (req, res, next) => {
-  return Promise.all([
+  Promise.all([
     Athlete.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -49,4 +56,14 @@ athletes.post('/', (req, res, next) => {
   })
   .then(() => res.redirect('/athletes'))
   .catch(next)
+})
+
+athletes.post('/:id', (req, res, next) => {
+  Promise.all([
+    Medal.create(req.body),
+    Athlete.findById(req.params.id)
+  ])
+    .then(([medal, athlete]) => medal.setAthlete(athlete))
+    .then(() => res.redirect(`/athletes/${req.params.id}`))
+    .catch(next)
 })

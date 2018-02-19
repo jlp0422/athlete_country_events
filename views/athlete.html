@@ -4,8 +4,29 @@
 
 <h4>{{ athlete.fullName }}</h4>
 
-<h6>Country: {{ athlete.country.name }}</h6>
+<p>Country: {{ athlete.country.name }}</p>
+<p>Total Medals: {{medals.length}}</p>
 
-<h6>Total Medals:</h6>
+<h5 style="margin-top:20px">Add Medal</h5>
+<form action="/athletes/{{athlete.id}}" method="POST" class="form-group">
+  <div class="form-row">
+    <div class="col-2">
+      <label>Medal Type</label>
+      <select class="form-control" name="place">
+        <option value="-1">Select...</option>
+        <option value="Gold">Gold</option>
+        <option value="Silver">Silver</option>
+        <option value="Bronze">Bronze</option>
+      </select>
+    </div>
+    <div class="col-5 form-row-mobile">
+      <label>Event</label>
+      <input type="text" name="event" class="form-control" />
+    </div>
+    <div style="padding-top:32px" class="col-2">
+      <button class="btn btn-primary">Add Medal</button>
+    </div>
+  </div>
+</form>
 
 {% endblock %}

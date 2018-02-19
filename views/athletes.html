@@ -4,6 +4,7 @@
 <h4>2018 Athletes</h4>
 
 <h5 style="padding-top:20px">Add new athlete</h5>
+
 <form action="/athletes" method="POST" style="margin:0px 0px 20px">
   <div class="form-row">
     <div class="col-3 form-row-mobile">
@@ -21,8 +22,6 @@
         <option value="{{country.name}}">{{country.name}}</option>
         {% endfor %}
       </select>
-
-    <!--  <input type="text" name="name" class="form-control" /> -->
     </div>
     <div style="padding-top:32px" class="col-2">
       <button class="btn btn-primary">Add Athlete</button>

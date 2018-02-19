@@ -21,7 +21,10 @@ countries.get('/:id', (req, res, next) => {
   return Promise.all([
     Athlete.findAll({
       where: {countryId: req.params.id},
-      include: [ Country ]
+      include: [ Country ],
+      order: [
+        ['lastName', 'ASC']
+      ]
     }),
     Country.findById(req.params.id)
   ])
