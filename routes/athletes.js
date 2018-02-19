@@ -8,7 +8,10 @@ module.exports = athletes
 athletes.get('/', (req, res ,next) => {
   return Promise.all([
     Athlete.findAll({
-      include: [ Country ]
+      include: [ Country ],
+      order: [
+       ['lastName', 'ASC']
+      ],
     }),
     Country.findAll({
       include: [ Athlete ]

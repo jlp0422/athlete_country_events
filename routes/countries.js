@@ -7,7 +7,10 @@ module.exports = countries
 
 countries.get('/', (req, res, next) => {
   Country.findAll({
-    include: [ Athlete ]
+    include: [ Athlete ],
+    order: [
+      ['name', 'ASC']
+    ]
   })
   // .then(countries => res.send(countries))
   .then(countries => res.render('countries', {countries, title: 'Countries'}))

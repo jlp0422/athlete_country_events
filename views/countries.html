@@ -16,9 +16,9 @@
   </div>
 </form>
 
-<ul>
+<ul class="list-group">
 {% for country in countries %}
-  <li>
+  <li class="list-group-item">
     <a href="/countries/{{country.id}}">{{ country.name }}</a>
   </li>
 {% endfor %}
