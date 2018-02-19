@@ -9,6 +9,6 @@ const Medal = conn.define('medal', {
   event: {
     type: Sequelize.STRING
   }
-})
+});
 
 module.exports = Medal

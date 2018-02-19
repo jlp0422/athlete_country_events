@@ -2,7 +2,7 @@
 
 const countries = require('express').Router()
 const db = require('../db')
-const { Athlete, Country } = db.models
+const { Athlete, Country, Medal } = db.models
 module.exports = countries
 
 countries.get('/', (req, res, next) => {
@@ -18,17 +18,17 @@ countries.get('/', (req, res, next) => {
 })
 
 countries.get('/:id', (req, res, next) => {
-  return Promise.all([
+  Promise.all([
     Athlete.findAll({
       where: {countryId: req.params.id},
-      include: [ Country ],
+      include: [ Country, Medal ],
       order: [
         ['lastName', 'ASC']
       ]
     }),
-    Country.findById(req.params.id)
+    Country.findById(req.params.id),
   ])
-  // .then((athletes, country) => res.send(country))
+  // .then(([athletes, country]) => res.send(athletes))
   .then(([athletes, country]) => res.render('country', { title: country.name, athletes, country}))
   .catch(next)
 })

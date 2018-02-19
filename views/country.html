@@ -3,12 +3,15 @@
 {% block content %}
 
 <h4>Athletes from {{ country.name }}</h4>
-
 <ul>
   {% for athlete in athletes %}
-  <li>{{athlete.fullName}}</li>
+  <li>{{athlete.fullName}} ({{athlete.medals.length}}
+    {% if athlete.medals.length === 1 %}Medal)
+    {% else %}Medals){%endif%}
+  </li>
   {% endfor %}
 </ul>
 
+<h4>Total Medals for {{country.name}} </h4>
 
 {% endblock %}
