@@ -3,11 +3,17 @@
 {% block content %}
 <h4>2018 Countries</h4>
 
-<h5>Add new country</h5>
-<form action="/countries" method="POST">
-  <label>Country</label>
-  <input type="text" name="name"/>
-  <button class="btn btn-primary">Add</button>
+<h5 style="padding-top:20px">Add new country</h5>
+<form action="/countries" method="POST" class="form-group">
+  <div class="form-row">
+    <div class="col-7">
+      <label>Country</label>
+      <input class="form-control" type="text" name="name"/>
+    </div>
+    <div style="padding-top:32px" class="col-2">
+      <button class="btn btn-primary">Add Country</button>
+    </div>
+  </div>
 </form>
 
 <ul>

@@ -3,22 +3,37 @@
 {% block content %}
 <h4>2018 Athletes</h4>
 
-<h5>Add new athlete</h5>
-<form action="/athletes" method="POST">
-  <label>First Name</label>
-  <input type="text" name="firstName" />
-  <label>Last Name</label>
-  <input type="text" name="lastName" />
-  <label>Country</label>
-  <input type="text" name="name" />
+<h5 style="padding-top:20px">Add new athlete</h5>
+<form action="/athletes" method="POST" style="margin:0px 0px 20px">
+  <div class="form-row">
+    <div class="col-3 form-row-mobile">
+      <label>First Name</label>
+      <input type="text" name="firstName" class="form-control" />
+    </div>
+    <div class="col-4">
+      <label>Last Name</label>
+      <input type="text" name="lastName" class="form-control" />
+    </div>
+    <div class="col-3">
+      <label>Country</label>
+      <select class="form-control" name="name">
+        {% for country in countries %}
+        <option value="{{country.name}}">{{country.name}}</option>
+        {% endfor %}
+      </select>
 
-  <button class="btn btn-primary">Add</button>
+    <!--  <input type="text" name="name" class="form-control" /> -->
+    </div>
+    <div style="padding-top:32px" class="col-2">
+      <button class="btn btn-primary">Add Athlete</button>
+    </div>
+  </div>
 </form>
 
-<ul>
+<ul class="list-group">
   {% for athlete in athletes %}
-  <li>
-    {{ athlete.fullName }} <a href="/countries/{{athlete.country.id}}">({{ athlete.country.name }})</a>
+  <li class="list-group-item">
+    <a href="/athletes/{{athlete.id}}">{{ athlete.fullName }}</a> <a href="/countries/{{athlete.country.id}}">({{ athlete.country.name }})</a>
   </li>
   {% endfor %}
 </ul>

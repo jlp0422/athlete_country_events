@@ -1,20 +1,37 @@
 /* eslint-disable */
 
-const app = require('express').Router()
+const athletes = require('express').Router()
 const db = require('../db')
 const { Athlete, Country } = db.models
-module.exports = app
+module.exports = athletes
 
-app.get('/', (req, res ,next) => {
-  Athlete.findAll({
-    include: [ Country ]
-  })
+athletes.get('/', (req, res ,next) => {
+  return Promise.all([
+    Athlete.findAll({
+      include: [ Country ]
+    }),
+    Country.findAll({
+      include: [ Athlete ]
+    })
+  ])
   // .then(athletes => res.send(athletes))
-  .then(athletes => res.render('athletes', { title: 'Athletes', athletes}))
+  .then(([athletes, countries]) => res.render('athletes', { title: 'Athletes', athletes, countries }))
   .catch(next)
 })
 
-app.post('/', (req, res, next) => {
+athletes.get('/:id', (req, res, next) => {
+  Athlete.find({
+    where: {
+      id: req.params.id
+    },
+    include: [ Country ]
+  })
+    // .then(athlete => res.send(athlete))
+    .then(athlete => res.render('athlete', {title: `${athlete.fullName}`, athlete}))
+    .catch(next)
+})
+
+athletes.post('/', (req, res, next) => {
   return Promise.all([
     Athlete.create({
       firstName: req.body.firstName,

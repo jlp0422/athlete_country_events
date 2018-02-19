@@ -1,11 +1,11 @@
 /* eslint-disable */
 
-const app = require('express').Router()
+const countries = require('express').Router()
 const db = require('../db')
 const { Athlete, Country } = db.models
-module.exports = app
+module.exports = countries
 
-app.get('/', (req, res, next) => {
+countries.get('/', (req, res, next) => {
   Country.findAll({
     include: [ Athlete ]
   })
@@ -14,7 +14,7 @@ app.get('/', (req, res, next) => {
   .catch(next)
 })
 
-app.get('/:id', (req, res, next) => {
+countries.get('/:id', (req, res, next) => {
   return Promise.all([
     Athlete.findAll({
       where: {countryId: req.params.id},
@@ -27,7 +27,7 @@ app.get('/:id', (req, res, next) => {
   .catch(next)
 })
 
-app.post('/', (req, res, next) => {
+countries.post('/', (req, res, next) => {
   Country.create(req.body)
     .then(() => res.redirect('/countries'))
     .catch(next)
